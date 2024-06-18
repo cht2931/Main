@@ -1,0 +1,856 @@
+/* remove white outer layer */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+/* .train a {
+  display: inline-block;
+  height: 100%;
+} */
+
+/* a {
+  display: inline-block;
+  height: 100%;
+} */
+
+/* a:hover {
+  text-decoration: underline;
+} */
+
+
+
+.Subtooltip {
+  text-align: center;
+  max-width: 150px; /* Set a maximum width for the subtooltips */
+  padding: 5px 10px; /* Add padding for spacing */
+  margin-bottom: 5px; /* Add margin between subtooltips */
+  white-space: normal; /* Allow text to wrap within the subtooltip */
+}
+
+
+
+
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+/* TOP BAR */
+#myIcon {
+    position: fixed;
+    top: 1%; 
+    left: 1%; 
+    width: 90px;
+    height: 90px;
+    transition: top 0.5s ease-out;
+    z-index: 1000; 
+}
+
+#myIcon.hide-icon {
+    top: -12%; 
+}
+@media (max-width: 600px) {
+#myIcon.hide-icon {
+    top: -15%; 
+}
+}
+
+
+
+
+body {
+  position: relative;/* Form a containing block for absolutely positioned elements */
+/*   overflow: hidden; */
+  overflow-x: hidden; /* Hide vertical overflow */
+}
+
+
+/* main train stuff */
+.container {
+  position: relative;  /* Form a containing block for absolutely positioned elements */
+  height: 100vh;  /* Height is 100% of the viewport height */
+/*   background-color: #A8DADC; */
+}
+
+.track {
+  position: absolute;  /* Positioned absolutely within .container */
+  bottom: -70%;  /* 20px from the bottom of .container */
+  height: 1%;
+  width: 100%;
+  background-color: #d8f3dc;
+}
+.trackbase {
+  position: absolute; 
+  bottom: -80%; 
+  height: 11%;
+  width: 100%;
+  background-color: #2d6a4f ;
+  z-index: -1;  
+}
+
+@keyframes move-initial {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-0.2%); }
+  100% { transform: translateX(0.2%); }
+}
+
+@keyframes move-loop {
+  0% { transform: translateX(-0.3%); }
+  50% { transform: translateX(0.3%); }
+  100% { transform: translateX(-0.3%); }
+}
+
+@keyframes move-out {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-150%); }
+}
+
+.train.leave {
+  animation: move-out 2s ease-in forwards;
+}
+
+
+
+
+
+.pulse {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  animation: pulse 1s infinite;
+  /* position the pulse div wherever you'd like it relative to the train car */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.car:hover .pulse {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+
+
+
+
+
+
+
+.train {
+  position: absolute;  /* Positioned absolutely within .container */
+  bottom: -69%;  /* 40px from the bottom of .container, or 20px above the track */
+  width: 100%;
+  height:8%;
+  text-align: center;
+  white-space: nowrap;
+  animation-name: move-initial, move-loop;
+  animation-duration: 3s, 5s;
+  animation-iteration-count: 1, infinite;
+  animation-timing-function: ease-in-out, ease-in-out;
+}
+
+/* .car .head .carOverlay{
+  background-color: white;
+} */
+
+/* .car {
+  display: inline-block;  
+  width:18%;
+  border-radius: 5%;
+  margin: 0px;
+  color: white;
+  text-align: center;
+  position: relative;
+  background-size: cover;  
+  background-position: center;  
+  background-repeat: no-repeat;  
+} */
+.car {
+  display: inline-block;  /* Inline-block so that the cars sit next to each other */
+  width:18%;
+/*   height: 10%; */
+  border-radius: 5%;
+  margin: 0px;
+/*   background-color: blue; */
+  color: white;
+  text-align: center;
+/*   line-height: 50px; */
+  position: relative;
+  background-size: cover;  /* Adjust the image size */
+  background-position: center;  /* Center the image */
+  background-repeat: no-repeat;  /* Don't repeat the image */
+  transition: transform 0.5s ease-out;
+}
+
+/* .train2 .car:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -100px;  
+  z-index: -1;
+}
+.train2 .car:hover {
+  transform: translateY(-100px);
+  transition-duration: 0.5s; 
+  transition-timing-function: ease-out; 
+} */
+
+.train2 {
+  transform: translateY(0);
+  transition: transform 0.5s ease-out;
+}
+.train3 {
+  opacity: 0;
+}
+
+.car .head .carOverlay:hover{
+  transform: translateY(-100px);
+}
+
+
+
+
+
+
+
+/* .car::after {
+  content: attr(data-tooltip);  
+  position: absolute;
+  bottom: 100%;  
+  left: 50%; 
+  transform: translateX(-50%);  
+  white-space: nowrap;  
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;  
+  opacity: 0;  
+  transition: opacity 0.3s ease-in-out; 
+  z-index: 1;
+} */
+
+
+
+/* .tooltip {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: red;
+  color: black;
+  border-radius: 10px;
+  visibility: hidden; 
+  z-index: 1;
+  width:100%;
+} */
+ .tooltip { 
+   position: fixed; 
+  top: -310%;  
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  background-color: white;
+  color: white;
+  border-radius: 10px;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  z-index: 1;
+  width: 35%;
+  height: 450%;  
+  visibility: hidden;
+  opacity: 0;
+}
+.tooltip.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* .tooltip2 {
+   position: fixed; 
+  top: -340%;  
+  left: 50%; 
+  height: 35%;  
+  overflow: hidden;  
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;  
+  background-color: rgba(60, 60, 60, 1);  
+  color: white;  
+  text-align: right;  
+  padding: 0 10px;
+  visibility: hidden;
+  opacity: 0;
+}
+.tooltip2.show {
+  visibility: visible;
+  opacity: 1;
+} */
+
+/* .subtooltip-container {
+  position: relative; 
+  left: -1%; 
+  height: 35%;  
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;  
+  visibility: hidden;  
+  opacity: 0;  
+} */
+.subtooltip-container {
+  position: absolute;
+  top: 50%;
+  left: -20%; /* Adjust this value to control the distance from the main tooltip */
+  transform: translateY(-50%);
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align the subtooltips to the right */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  margin-right: 10px; /* Add some margin between the subtooltips and the photo */
+}
+
+.subtooltip-container.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.Subtooltip {
+  text-align: center;
+}
+
+
+.Subtooltip.red-bg {
+  background-color: #F44336;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.Subtooltip.blue-bg {
+  background-color: #2196F3;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.Subtooltip.green-bg {
+  background-color: #4CAF50;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.Subtooltip.Tangerine-bg {
+  background-color: #FF9800;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.Subtooltip.TyrianPurple-bg {
+  background-color: #9C27B0;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+
+/* .tooltip {
+  position: fixed;
+  top: 50%;  
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  background-color: white;
+  color: white;
+  border-radius: 10px;
+  visibility: hidden;
+  transition: visibility 0.1s ease-in-out, opacity 0.1s ease-in-out;
+  z-index: 1;
+  width: 35%;
+  height: 450%;  
+} */
+
+
+.HighLightText {
+  position: absolute;
+  bottom: 0;  /* This will position .HighLightText at the bottom of the .tooltip */
+  left: 50%;
+  height:10%;
+  transform: translate(-50%, 0);  /* This moves the .HighLightText left by half of its width, but not up or down */
+  background-color: rgba(60, 60, 60, 0.8);  /* semi-transparent white background */
+  width: 100%;
+  text-align: center;  /* centers the text horizontally */
+  border-bottom-left-radius: 10px;  /* round the bottom-left corner */
+  border-bottom-right-radius: 10px;  /* round the bottom-right corner */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+}
+
+
+
+
+
+
+
+
+/* .car:hover::after {
+  opacity: 1;  
+} */
+/* .car:hover .tooltip {
+  visibility: visible; 
+  opacity: 1;
+} */
+.head {
+/*   background-color: red; */
+/*   height:100%; */
+  width:20%;
+  background-size: cover;
+  background-position: center; 
+/*   background-size: 100% auto; */
+  background-position: 0% center; 
+  background-repeat: no-repeat;  
+}
+
+@media (max-width: 600px) {
+  .head {
+    width: 20%;
+    background-size: cover;
+    background-position: 0% 50%; 
+    background-repeat: no-repeat;  
+  }
+}
+
+.head::after {
+  content: none;
+}
+.car, .head {
+  height: 100%;
+}
+
+
+
+
+
+/* background images */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }  /* Only need to move by 50% since it's double width */
+}
+
+/* background image for original stoped image */
+/* .background-far {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://i.imgur.com/gYnoT4e.png');  
+  background-size: cover;
+  background-position: 100% 0%; 
+  background-repeat: no-repeat;  
+  z-index: -2;  
+} */
+
+/* .background-far {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200%; 
+  height: 100%;
+  background: url('https://i.imgur.com/YnrHNss.png') repeat-x; 
+  background-size: 50% 100%; 
+  animation: scroll 180s linear infinite;
+  z-index: -2;
+} */
+
+.background-far,
+.background-far2,
+.background-far3 {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  width: 200%;
+  height: 90%;
+  background-repeat: repeat-x; /* repeat horizontally */
+  background-size: 50% 100%; 
+  animation: scroll 240s linear infinite; /* animation to scroll background */
+}
+
+.background-far {
+  background-image: url('https://i.imgur.com/YnrHNss.png');
+  z-index: -3;
+}
+
+.background-far2 {
+  background-image: url('https://i.imgur.com/tSu1WfD.png');
+  z-index: -2;
+  top: 115%;
+  height:60%;
+  animation: scroll 120s linear infinite; /* slower scroll speed for parallax effect */
+}
+
+.background-far3 {
+  background-image: url('https://i.imgur.com/QyNkniW.png');
+  z-index: -1;
+  top: 118%;
+  height:80%;
+  animation: scroll 60s linear infinite; /* faster scroll speed for parallax effect */
+}
+
+@keyframes scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+
+
+/* .background-far {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.background-far video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} */
+
+
+.background-front {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 200%;  /* set to 200% for looping */
+  height: 25%;  /* Adjust according to your preference */
+  background-image: url('https://i.imgur.com/BZdewR6.png');  /* replace with your image */
+  background-size: 50% 100%;  /* set to 50% for looping */
+  background-repeat: repeat-x; /* repeat horizontally */
+  animation: scroll 8s linear infinite; /* animation to scroll background */
+  z-index: 0;  /* Placed behind train and track, but in front of far background */
+}
+.background-front2 {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 200%;  /* set to 200% for looping */
+  height: 25%;  /* Adjust according to your preference */
+  background-image: url('https://i.imgur.com/n8dZxer.png');  /* replace with your image */
+  background-size: 50% 100%;  /* set to 50% for looping */
+  background-repeat: repeat-x; /* repeat horizontally */
+  animation: scroll 4s linear infinite; /* animation to scroll background */
+  z-index: 1;  /* Placed behind train and track, but in front of far background */
+}
+
+/* .background-front2 {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 25%;  
+  background-image: url('https://drive.google.com/uc?export=view&id=1b6itiaZSuSepaYcitvfe2bCpJcEtmP7f');  
+  background-size: cover;
+  z-index: -1; 
+} */
+
+.background-frontVV1 {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 25%;  /* Adjust according to your preference */
+  z-index: 0;  /* Placed behind train and track, but in front of far background */
+}
+
+.background-frontVV1 video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This will make the video behave similar to the CSS background-size: cover property */
+}
+
+
+.skyy{
+  position: absolute;
+/*   bottom: 100%; */
+  top: 0;
+  left: 0;
+  width: 180%;
+  height: 180%;  /* Adjust according to your preference */
+  background-image: url('https://i.imgur.com/ghye8KG.png');  /* replace with your image */
+/*   background-size: cover; */
+  background-repeat: repeat-x; /* repeat horizontally */
+  background-size: 50% 100%; 
+  animation: scroll 240s linear infinite; /* animation to scroll background */
+  z-index: -3;  /* Placed behind train and track, but in front of far background */
+}
+
+
+/* topUI */
+.TopFixUI {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px; /* adjust as needed */
+/*   background-color: white;  */
+  background: rgba(0, 0, 0, 0.05);
+  z-index: 1000; /* high z-index to ensure it stays on top of other elements */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+}
+
+
+
+
+/* description text*/
+.aboutText{
+  position: absolute;
+  top:70%;
+  color: white;
+}
+@media (max-width: 600px) {
+.aboutText{
+  position: absolute;
+  top:45%;
+  color: red;
+}
+}
+
+.Aboutt {
+  position: absolute;
+  width: 70%;
+  height: 30vh;
+  top: 60%;
+  left: 50%;
+  color: #191970;
+/*   background-color:blue; */
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  font-size: 32px;
+  transform: translate(-50%, -50%);
+}
+
+
+
+
+
+
+/* Arrows */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) translateX(-50%) rotate(45deg);
+  }
+  50% {
+    transform: translateY(10px) translateX(-50%) rotate(45deg);
+  }
+}
+@keyframes bouncetext {
+  0%, 100% {
+    transform: translateY(0) translateX(-50%);
+  }
+  50% {
+    transform: translateY(10px) translateX(-50%);
+  }
+}
+
+
+
+
+
+.hollow-arrow-down {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  top:90vh;
+  width: 30px;
+  height: 30px;
+  border-bottom: 2px solid #191970;
+  border-right: 2px solid #191970;
+  transform: translateX(-50%) rotate(45deg);
+  animation: bounce 1s infinite;
+}
+
+.hollow-arrow-up {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  bottom:-10vh;
+  width: 30px;
+  height: 30px;
+  border-top: 2px solid #191970;
+  border-left: 2px solid #191970;
+  transform: translateX(-50%) rotate(45deg);
+  animation: bounce 1s infinite;
+}
+.hollow-arrow-up, .hollow-arrow-down {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;  /* Adjust the duration and easing function as needed */
+}
+
+.Bouncing-text-down {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  color:#191970;
+  transform: translateX(-50%);
+  animation: bouncetext 1s infinite;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+}
+.Bouncing-text-up {
+  position: absolute;
+  bottom:-12.5%;
+  left: 50%;
+  color:#191970;
+  transform: translateX(-50%);
+  animation: bouncetext 1s infinite;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+}
+.Bouncing-text-down, .Bouncing-text-up {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;  /* Adjust the duration and easing function as needed */
+}
+
+
+
+
+/* Rocket Ship Initial Style */
+/* Rocket Ship Initial Style */
+.fixed-rocket {
+    position: absolute;
+    top: 135%;  /* Center vertically */
+    left: 100%;  /* Initially position it off to the right */
+    transform: translate(-50%, -50%);  /* Adjust for true center */
+    transition: left 0.5s ease-in-out;  /* Smooth transition when hovering */
+    z-index: 1000;  /* Ensure it stays on top of other elements */
+}
+
+.fixed-rocket .rocket-img {
+    width: 20vw;  /* Set width to 15% of the viewport width */
+    height: auto;  /* Maintain aspect ratio */
+    cursor: pointer;  /* Change cursor to pointer to indicate interactivity */
+    animation: float 2s infinite;  /* Optional: Add a floating animation */
+}
+
+.fixed-rocket .hover-area {
+    position: absolute;
+    top: 0;
+    left: -50px;  /* Extend 50px to the left */
+    width: calc(100% + 5vh);  /* Extend the width to cover the rocket's head and additional space */
+    height: 80%;
+    cursor: pointer;  /* Ensure the cursor changes to pointer over the hover area */
+    /* Optional: Uncomment the line below to see the hover area */
+    /* background: rgba(255, 0, 0, 0.1); */
+}
+
+/* Hover Effect */
+.fixed-rocket:hover {
+    left: 90%;  /* Move the rocket ship to the left on hover */
+}
+
+/* Floating Animation (Optional) */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+
+
+
+/* rocket tooltips */
+.rocket-tooltip {
+   position: absolute; 
+  top: 136.2%;  
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  background-color: white;
+  color: white;
+  border-radius: 10px;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  z-index: 1;
+  width: 35.15%;
+  height: 36%;  
+  visibility: hidden;
+  opacity: 0;
+}
+
+.fixed-rocket:hover + .rocket-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.rocket-tooltip .HighLightText {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    height: 10%;
+    transform: translate(-50%, 0);
+    background-color: rgba(60, 60, 60, 0.8);
+    width: 100%;
+    text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+
+
+/* rocket subtooltips */
+
+
+.rocket-tooltip .subtooltip-container {
+  position: absolute;
+  top: 50%;
+  left: -20%;
+  transform: translateY(-50%);
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  margin-right: 10px;
+}
+
+.fixed-rocket:hover ~ .rocket-tooltip .subtooltip-container {
+  visibility: visible;
+  opacity: 1;
+}
